@@ -2,11 +2,12 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { 
-  CheckCircle, 
-  LayoutDashboard, 
-  Clock, 
-  FileCheck, 
-  Users 
+  BookOpen, 
+  Shield, 
+  LineChart,
+  FileCheck,
+  Headphones,
+  MousePointer
 } from 'lucide-react';
 
 const Features: React.FC = () => {
@@ -37,94 +38,80 @@ const Features: React.FC = () => {
   const features = [
     {
       id: 1,
-      title: 'Acesso fácil e intuitivo',
-      description: 'Interface amigável que facilita a navegação e o aprendizado, mesmo para quem não tem familiaridade com tecnologia.',
-      icon: <LayoutDashboard className="h-8 w-8 text-primary-600" />,
+      title: 'Conteúdo Atualizado',
+      description: 'Material didático constantemente revisado conforme as atualizações das normas regulamentadoras.',
+      icon: <BookOpen className="h-8 w-8 text-accent-500" />,
     },
     {
       id: 2,
-      title: 'Conteúdo sempre atualizado',
-      description: 'Atualizações automáticas conforme as normas evoluem, garantindo que sua empresa esteja sempre em conformidade com a legislação vigente.',
-      icon: <Clock className="h-8 w-8 text-primary-600" />,
+      title: 'Certificação Digital',
+      description: 'Emissão automática de certificados com validade legal após a conclusão dos treinamentos.',
+      icon: <Shield className="h-8 w-8 text-accent-500" />,
     },
     {
       id: 3,
-      title: 'Certificados digitais',
-      description: 'Emissão automática de certificados digitais válidos perante a fiscalização do trabalho, com assinatura digital e validação online.',
-      icon: <FileCheck className="h-8 w-8 text-primary-600" />,
+      title: 'Relatórios Detalhados',
+      description: 'Acompanhamento em tempo real do desempenho e progresso de cada colaborador.',
+      icon: <LineChart className="h-8 w-8 text-accent-500" />,
     },
     {
       id: 4,
-      title: 'Gestão completa da capacitação',
-      description: 'Acompanhamento detalhado do progresso de cada colaborador, notificações automáticas de vencimento e relatórios personalizados.',
-      icon: <Users className="h-8 w-8 text-primary-600" />,
+      title: 'Conformidade Total',
+      description: 'Garantia de que todos os treinamentos estão de acordo com as exigências legais.',
+      icon: <FileCheck className="h-8 w-8 text-accent-500" />,
+    },
+    {
+      id: 5,
+      title: 'Suporte Especializado',
+      description: 'Equipe de especialistas em segurança do trabalho disponível para auxiliar sua empresa.',
+      icon: <Headphones className="h-8 w-8 text-accent-500" />,
+    },
+    {
+      id: 6,
+      title: 'Interface Intuitiva',
+      description: 'Plataforma fácil de usar que aumenta o engajamento e facilita o aprendizado.',
+      icon: <MousePointer className="h-8 w-8 text-accent-500" />,
     },
   ];
 
   return (
-    <section className="py-24 bg-white" id="recursos">
+    <section className="py-24 bg-primary-900" id="recursos">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
           variants={containerVariants}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
-          className="max-w-4xl mx-auto"
+          className="max-w-7xl mx-auto"
         >
           <motion.div variants={itemVariants} className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-display font-bold text-secondary-900 mb-6">
-              A solução completa para capacitação em NRs
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-6">
+              Por que nossa plataforma é a melhor
             </h2>
-            <p className="text-xl text-secondary-600 max-w-3xl mx-auto">
-              Nossa plataforma foi desenvolvida especificamente para atender às necessidades de capacitação 
-              em Normas Regulamentadoras, oferecendo:
+            <p className="text-xl text-primary-100 max-w-3xl mx-auto">
+              Desenvolvida para atender todas as necessidades de treinamento em Normas 
+              Regulamentadoras, nossa plataforma oferece recursos exclusivos para garantir a 
+              conformidade da sua empresa.
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature) => (
               <motion.div
                 key={feature.id}
                 variants={itemVariants}
-                className="bg-secondary-50 p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+                className="bg-primary-800/50 backdrop-blur-sm p-8 rounded-lg transition-all duration-300 hover:bg-primary-700/50 hover:transform hover:-translate-y-2 hover:shadow-xl group"
               >
-                <div className="flex items-start">
-                  <div className="flex-shrink-0 mt-1">{feature.icon}</div>
-                  <div className="ml-5">
-                    <h3 className="text-xl font-bold text-secondary-800 mb-3">{feature.title}</h3>
-                    <p className="text-secondary-600">{feature.description}</p>
+                <div className="flex flex-col items-center text-center">
+                  <div className="mb-6 transform transition-transform duration-300 group-hover:scale-110">
+                    {feature.icon}
                   </div>
+                  <h3 className="text-xl font-bold text-white mb-4">{feature.title}</h3>
+                  <p className="text-primary-100">{feature.description}</p>
                 </div>
               </motion.div>
             ))}
           </div>
-
-          <motion.div variants={itemVariants} className="text-center">
-            <h3 className="text-2xl font-bold text-secondary-900 mb-8">
-              Por que escolher nossa plataforma
-            </h3>
-            
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[
-                'Total conformidade com as NRs',
-                'Economia de tempo e recursos',
-                'Suporte técnico especializado',
-                'Relatórios detalhados em tempo real',
-                'Acesso em qualquer dispositivo',
-                'Metodologia validada'
-              ].map((item, index) => (
-                <motion.div
-                  key={index}
-                  className="flex items-center p-4 bg-primary-50 rounded-lg"
-                  whileHover={{ scale: 1.03 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <CheckCircle className="h-5 w-5 text-success-600 flex-shrink-0" />
-                  <span className="ml-3 text-secondary-800 font-medium">{item}</span>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
         </motion.div>
       </div>
     </section>

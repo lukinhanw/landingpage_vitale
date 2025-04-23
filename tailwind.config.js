@@ -69,10 +69,15 @@ export default {
           '0%, 100%': { transform: 'translateY(0)' },
           '50%': { transform: 'translateY(-5px)' },
         },
+        'spin-slow': {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(360deg)' },
+        },
       },
       animation: {
         float: 'float 3s ease-in-out infinite',
         floatSlow: 'floatSlow 5s ease-in-out infinite',
+        'spin-slow': 'spin-slow 20s linear infinite',
       },
     },
   },

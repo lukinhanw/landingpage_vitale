@@ -47,23 +47,26 @@ const Problem: React.FC = () => {
       <div 
         className="absolute inset-0 opacity-5"
         style={{
-          transform: `translateY(${scrollY * 0.5}px)`,
+          transform: `translateY(${scrollY * 0.2}px)`,
           backgroundImage: "url('https://images.pexels.com/photos/3862132/pexels-photo-3862132.jpeg?auto=compress&cs=tinysrgb&h=1500')",
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
+          backgroundSize: '150% auto',
+          backgroundPosition: 'center center',
+          backgroundRepeat: 'no-repeat',
           filter: 'grayscale(100%)',
-          willChange: 'transform'
+          willChange: 'transform',
+          height: '150%',
+          top: '-25%'
         }}
       />
 
       {/* Parallax floating elements */}
       <motion.div
-        className="absolute top-20 left-10 w-40 h-40 bg-primary-500 rounded-full opacity-5"
+        className="absolute -top-20 left-10 w-96 h-96 bg-primary-500 rounded-full opacity-5"
         style={{ transform: `translateY(${scrollY * 0.3}px)` }}
       />
       
       <motion.div
-        className="absolute bottom-20 right-10 w-60 h-60 bg-accent-500 rounded-full opacity-5"
+        className="absolute -bottom-40 right-10 w-[40rem] h-[40rem] bg-accent-500 rounded-full opacity-5"
         style={{ transform: `translateY(${scrollY * 0.2}px)` }}
       />
 
