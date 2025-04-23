@@ -3,7 +3,11 @@ import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { Shield, Check } from 'lucide-react';
 
-const CallToAction: React.FC = () => {
+interface CallToActionProps {
+  onDemoClick: () => void;
+}
+
+const CallToAction: React.FC<CallToActionProps> = ({ onDemoClick }) => {
   const [ref, inView] = useInView({
     triggerOnce: false,
     threshold: 0.2,
@@ -82,6 +86,7 @@ const CallToAction: React.FC = () => {
                 </ul>
                 
                 <motion.button
+                  onClick={onDemoClick}
                   className="w-full py-4 bg-accent-500 text-white rounded-lg font-bold text-lg shadow-lg hover:bg-accent-600 transition-colors duration-300"
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.98 }}

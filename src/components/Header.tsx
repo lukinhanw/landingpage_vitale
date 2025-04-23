@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Shield, Menu, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 
-const Header: React.FC = () => {
+interface HeaderProps {
+  onDemoClick: () => void;
+}
+
+const Header: React.FC<HeaderProps> = ({ onDemoClick }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -23,32 +27,43 @@ const Header: React.FC = () => {
   return (
     <header 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-white shadow-md py-2' : 'bg-transparent py-4'
+        isScrolled ? 'bg-primary-900/95 backdrop-blur-sm py-4' : 'bg-transparent py-6'
       }`}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
-          <div className="flex items-center">
-            <Shield className="h-8 w-8 text-primary-600" />
-            <span className={`ml-2 font-display font-bold text-xl ${isScrolled ? 'text-primary-800' : 'text-white'}`}>
-              SafeTreinamentos
-            </span>
-          </div>
+          {/* Logo */}
+          <a href="/" className="flex items-center">
+            <img 
+              src="/imgs/logo-white.png"
+              alt="PlataformaNR Logo"
+              className="h-20 w-auto"
+            />
+          </a>
           
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-8">
-            {['Início', 'Recursos', 'Benefícios', 'Depoimentos', 'Contato'].map((item) => (
+          <nav className="hidden md:flex items-center space-x-8">
+            {[
+              { name: 'Home', href: '#' },
+              { name: 'Sobre', href: '#sobre' },
+              { name: 'Recursos', href: '#recursos' },
+              { name: 'Produtos', href: '#produtos' },
+              { name: 'Depoimentos', href: '#depoimentos' },
+              { name: 'FAQ', href: '#faq' },
+              { name: 'Contato', href: '#contato' },
+            ].map((item) => (
               <a 
-                key={item} 
-                href={`#${item.toLowerCase()}`}
-                className={`font-medium transition-colors duration-200 ${
-                  isScrolled ? 'text-secondary-700 hover:text-primary-600' : 'text-white hover:text-accent-300'
-                }`}
+                key={item.name} 
+                href={item.href}
+                className="text-sm font-medium text-gray-200 hover:text-white transition-colors duration-200"
               >
-                {item}
+                {item.name}
               </a>
             ))}
-            <button className="px-5 py-2 rounded-full bg-accent-500 hover:bg-accent-600 text-white font-medium transition-colors duration-200">
+            <button 
+              onClick={onDemoClick}
+              className="px-6 py-2.5 rounded-lg bg-accent-500 hover:bg-accent-600 text-white text-sm font-medium transition-colors duration-200"
+            >
               Demonstração
             </button>
           </nav>
@@ -56,13 +71,13 @@ const Header: React.FC = () => {
           {/* Mobile Menu Button */}
           <button 
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden"
+            className="md:hidden p-2 text-gray-200 hover:text-white"
             aria-label="Menu"
           >
             {mobileMenuOpen ? (
-              <X className={`h-6 w-6 ${isScrolled ? 'text-secondary-900' : 'text-white'}`} />
+              <X className="h-6 w-6" />
             ) : (
-              <Menu className={`h-6 w-6 ${isScrolled ? 'text-secondary-900' : 'text-white'}`} />
+              <Menu className="h-6 w-6" />
             )}
           </button>
         </div>
@@ -70,24 +85,37 @@ const Header: React.FC = () => {
       
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white shadow-lg">
-            {['Início', 'Recursos', 'Benefícios', 'Depoimentos', 'Contato'].map((item) => (
+        <div className="md:hidden bg-primary-900/95 backdrop-blur-sm">
+          <div className="px-4 pt-2 pb-4 space-y-2">
+            {[
+              { name: 'Home', href: '#' },
+              { name: 'Sobre', href: '#sobre' },
+              { name: 'Recursos', href: '#recursos' },
+              { name: 'Produtos', href: '#produtos' },
+              { name: 'Depoimentos', href: '#depoimentos' },
+              { name: 'FAQ', href: '#faq' },
+              { name: 'Contato', href: '#contato' },
+            ].map((item) => (
               <a
-                key={item}
-                href={`#${item.toLowerCase()}`}
-                className="block px-3 py-2 rounded-md text-base font-medium text-secondary-700 hover:text-primary-600 hover:bg-primary-50"
+                key={item.name}
+                href={item.href}
+                className="block px-4 py-2 text-base font-medium text-gray-200 hover:text-white hover:bg-primary-800/50 rounded-lg transition-colors duration-200"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                {item}
+                {item.name}
               </a>
             ))}
-            <button 
-              className="w-full mt-2 px-3 py-2 rounded-md text-base font-medium text-white bg-accent-500 hover:bg-accent-600"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Demonstração
-            </button>
+            <div className="px-4 pt-2">
+              <button 
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onDemoClick();
+                }}
+                className="w-full px-6 py-2.5 rounded-lg bg-accent-500 hover:bg-accent-600 text-white text-sm font-medium transition-colors duration-200"
+              >
+                Demonstração
+              </button>
+            </div>
           </div>
         </div>
       )}

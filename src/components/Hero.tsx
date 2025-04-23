@@ -1,94 +1,98 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Shield, Award, BookOpen } from 'lucide-react';
+import { Shield } from 'lucide-react';
 
-const Hero: React.FC = () => {
+interface HeroProps {
+  onDemoClick: () => void;
+}
+
+const Hero: React.FC<HeroProps> = ({ onDemoClick }) => {
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <section id="início" className="relative min-h-screen flex items-center pt-16 overflow-hidden">
-      {/* Background with modern gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary-900 via-primary-800/90 to-primary-700/50 backdrop-blur-sm z-0"></div>
-
-      {/* Floating objects */}
-      <motion.div 
-        className="absolute top-32 right-10 z-10 text-white opacity-70"
-        animate={{ y: [0, -20, 0] }}
-        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-      >
-        <Shield size={60} />
-      </motion.div>
+    <section id="início" className="relative min-h-screen flex items-center pt-16 overflow-hidden bg-[#003366]">
+      {/* Parallax Background */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center z-0" 
+        style={{ 
+          backgroundImage: 'url(/imgs/hero-bg.jpg)',
+          transform: `translateY(${scrollY * 0.3}px)`,
+          backgroundSize: 'cover'
+        }}
+      />
       
-      <motion.div 
-        className="absolute bottom-40 left-20 z-10 text-accent-400 opacity-60"
-        animate={{ y: [0, -15, 0] }}
-        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-      >
-        <Award size={50} />
-      </motion.div>
+      {/* Overlay for readability */}
+      <div className="absolute inset-0 bg-[#003366]/70 z-10"></div>
       
-      <motion.div 
-        className="absolute top-1/2 right-1/4 z-10 text-primary-300 opacity-50"
-        animate={{ y: [0, -25, 0] }}
-        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-      >
-        <BookOpen size={40} />
-      </motion.div>
+      {/* Gradient overlay for better text readability on the left side */}
+      <div className="absolute inset-0 z-[15] bg-gradient-to-r from-[#001a33]/95 via-[#002b4d]/80 to-transparent"></div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      {/* Shield Icon in top right corner */}
+      <div className="absolute top-10 right-10 z-20">
+        <Shield size={80} className="text-white/20" />
+      </div>
+
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-20 py-12 md:py-24">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center">
           {/* Left column - Text content */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-left"
+            className="lg:col-span-7 text-left relative z-20"
           >
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-bold text-white leading-tight mb-6">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-bold text-white leading-tight mb-6 drop-shadow-sm">
               Capacite sua equipe nas NRs de forma simples e eficaz
             </h1>
             
-            <p className="text-xl md:text-2xl text-gray-100 mb-8">
+            <p className="text-xl md:text-2xl text-white mb-10 drop-shadow-sm">
               Transforme a capacitação em segurança do trabalho da sua empresa com uma plataforma interativa, intuitiva e 100% conforme as normas.
             </p>
             
             <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
               <motion.button
-                className="px-8 py-3 text-lg font-medium rounded-full bg-accent-500 text-white shadow-lg hover:bg-accent-600 transition-all duration-300"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                onClick={onDemoClick}
+                className="px-8 py-3 text-lg font-medium rounded-lg bg-accent-500 text-white shadow-lg hover:bg-accent-600 transition-all duration-300"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
               >
                 Solicitar demonstração
               </motion.button>
               
               <motion.button
-                className="px-8 py-3 text-lg font-medium rounded-full bg-transparent border-2 border-white text-white hover:bg-white hover:text-primary-800 transition-all duration-300"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                className="px-8 py-3 text-lg font-medium rounded-lg bg-transparent border border-white text-white hover:bg-white/10 transition-all duration-300"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
               >
                 Conhecer planos
               </motion.button>
             </div>
           </motion.div>
 
-          {/* Right column - System mockup */}
+          {/* Right column - Image of people */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative"
+            className="lg:col-span-5 relative hidden lg:block"
           >
-            <div className="relative mx-auto max-w-2xl">
-              {/* Laptop frame */}
-              <div className="relative w-full pt-[60%] rounded-t-xl bg-secondary-800">
-                {/* Screen content */}
-                <div className="absolute inset-2 top-[5%] rounded-md overflow-hidden bg-white">
-                  <img 
-                    src="https://images.pexels.com/photos/8297452/pexels-photo-8297452.jpeg?auto=compress&cs=tinysrgb&w=1200" 
-                    alt="Dashboard do sistema" 
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                {/* Laptop bottom */}
-                <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 w-[102%] h-[3%] bg-secondary-700 rounded-b-xl"></div>
+            <div className="relative mx-auto">
+              {/* Image of people in professional setting */}
+              <div className="relative overflow-hidden rounded-lg shadow-2xl">
+                <img 
+                  src="/imgs/hero-people.jpg" 
+                  alt="Equipe de profissionais" 
+                  className="w-full h-auto object-cover rounded-lg"
+                />
               </div>
 
               {/* Decorative elements */}
