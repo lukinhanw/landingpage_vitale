@@ -27,7 +27,7 @@ const Header: React.FC<HeaderProps> = ({ onDemoClick }) => {
   return (
     <header 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-primary-900/95 backdrop-blur-sm py-4' : 'bg-transparent py-6'
+        isScrolled ? 'bg-primary-900/60 backdrop-blur-sm py-2' : 'bg-transparent py-6'
       }`}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -37,7 +37,9 @@ const Header: React.FC<HeaderProps> = ({ onDemoClick }) => {
             <img 
               src="/imgs/logo-white.png"
               alt="PlataformaNR Logo"
-              className="h-20 w-auto"
+              className={`transition-all duration-300 ${
+                isScrolled ? 'h-16 w-auto' : 'h-28 w-auto'
+              }`}
             />
           </a>
           
